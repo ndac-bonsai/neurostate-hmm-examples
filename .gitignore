@@ -1,4 +1,5 @@
 .bin
 !.raw_ephys_traces.bin
+.txt
 .pkl
 .bonsai.layout
