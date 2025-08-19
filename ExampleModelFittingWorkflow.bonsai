@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.5"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:py="clr-namespace:Bonsai.Scripting.Python;assembly=Bonsai.Scripting.Python"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:CreateRuntime">
+          <py:PythonHome>.venv</py:PythonHome>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="neurostate_hmm:InitFitting.bonsai">
+        <SampleRate>30000</SampleRate>
+        <DownsampledSampleRate>500</DownsampledSampleRate>
+        <FilterLowerBound>0.3</FilterLowerBound>
+        <FilterUpperBound>200</FilterUpperBound>
+        <WindowDuration>1.024</WindowDuration>
+        <WindowStepDuration>0.04</WindowStepDuration>
+        <LowFrequencyBound>1</LowFrequencyBound>
+        <HighFrequencyBound>100</HighFrequencyBound>
+        <Parameters_FN>Parameters.txt</Parameters_FN>
+        <NumStates>2</NumStates>
+        <NumSubstates>1</NumSubstates>
+        <ObsDimension>2</ObsDimension>
+        <Training_Data_FN>DataCollection\TrainingData.bin</Training_Data_FN>
+        <ModelFN>ModelFitting\HMM_Model.pkl</ModelFN>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="neurostate_hmm:ModelFitting.bonsai" />
+    </Nodes>
+    <Edges />
+  </Workflow>
+</WorkflowBuilder>
