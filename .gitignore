@@ -1,6 +1,6 @@
-.bin
-!.raw_ephys_traces.bin
-.txt
+*.bin
+!raw_ephys_traces.bin
+*.txt
 .venv/
-.pkl
-.bonsai.layout
+*.pkl
+*.bonsai.layout
