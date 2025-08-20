@@ -34,4 +34,19 @@ Press 'Start' to run this workflow. The raw electrophysiology buffers can be vis
 
 ### ExampleModelFittingWorkflow
 
-This workflow simply runs a Python script that accesses the stored data from the previous workflow (DataCollection/TrainingData.bin) and fits an HMM or HSMM. 
+<img width="239" height="75" alt="image" src="https://github.com/user-attachments/assets/6839add4-ec0d-4bb8-9018-896ecff43dc6" />
+
+This workflow simply runs a Python script that accesses the stored data from the previous workflow (DataCollection/TrainingData.bin) and fits an HMM or HSMM. The 'CreateRuntime' node accesses the set-up Python virtual environment; ensure that the 'PythonHome' path is set correctly, if the virtual environment was installed elsewhere on your machine. The 'InitFitting' node contains the parameters for the model fit. For the example, 'NumStates' and 'ObsDimension' should both be 2. The 'NumSubstates' parameters can be varied: choosing 'NumSubstates'=1 means that an HMM model will be fit, while setting 'NumSubstates'>1 means that an HSMM model will be fit. (Note: 'NumSubstates'=10 gives a reasonable HSMM fit for the example dataset). Finally, the location and name of the pickle file that saves the model can be modified in the 'ModelFN' field.
+
+Press 'Start' to run this workflow. The Bonsai-associated command window will show the progress of the iterative model fit and indicate when the script has terminated. At this point, the workflow can be closed.
+
+### ExampleDecodingWorkflow
+
+<img width="633" height="307" alt="image" src="https://github.com/user-attachments/assets/535d7936-57b9-4ba7-b6b4-a5b2e33c4cc5" />
+
+This workflow simulates streaming in raw electrophysiology data and applies HMM/HSMM-based state decoding in real-time. In the 'InitDecoding' node, ensure that the preprocessing parameters match the parameters used to collect the model training data. Also, ensure that the fitting parameters and model file match the ones used while fitting the model. After running the workflow, you can visualize the state decoding from the 'Decoding' node.
+
+### TimingDecodingWorkflow
+
+This workflow is the same as the ExampleDecodingWorkflow, except that it times the execution time of the preprocessing and decoding nodes, which can be visualized at the 'Subtract' Bonsai node.
+
