@@ -10,8 +10,9 @@ To start, clone this repository to your local machine. But, before using these e
 
 First, install Bonsai on your system, if not already present (https://bonsai-rx.org/). After Bonsai is installed, use the built-in Bonsai package manager to install a couple of libraries that are needed for the example workflows: 
 1. **Bonsai.StarterPack** -> this contains basic Bonsai libraries required for useful nodes, visualization, etc.
-2. **Bonsai.Shaders** -> this access a computer timer with high resolution, which we use as a clock to help simulate real-time neural data.
-3. **neurostate_hmm** -> this is the package we are testing.
+2. **Bonsai.Shaders** -> this accesses a computer timer with high resolution, which we use as a clock to help simulate real-time neural data.
+3. **Bonsai.Scripting.Python** -> this accesses Bonsai's Python scripting functionality.
+4. **neurostate_hmm** -> this is the package we are testing.
 
 Check the 'prerelease' and 'show advanced' options on the search bar to find the prereleased **neurostate_hmm** NuGet package. These libraries should install all of the Bonsai dependencies and tools needed to run the example workflows.
 
@@ -20,3 +21,17 @@ Check the 'prerelease' and 'show advanced' options on the search bar to find the
 Next, we need to set-up a Python virtual environment to be able to run Python code from Bonsai scripting nodes in the **neurostate_hmm** package. To make this easy, we recommend installing Microsoft Visual Studio Code (https://code.visualstudio.com/). Next, download Python 3.10.11 (https://www.python.org/downloads/release/python-31011/). To create a virtual environment from Microsoft VS Code, we first need to install the VS Code Python extension. In VS Code, open up the directory where you want the virtual environment folder to be placed; this can be anywhere, but for ease of using the example workflows this should be placed in the root directory of the **neurostate-hmm-examples** project. Then, run the command 'Python: Create Environment', select 'Venv', and choose the Python 3.10.11 installation.
 
 Open up a VS Code command terminal using the virtual environment, navigate to the root directory of **neurostate-hmm-examples**, and then run *"pip install -r requirements.txt"* to install Python dependencies. Next, we need install the Linderman Lab **ssm** Python library (https://github.com/lindermanlab/ssm). First, clone the repository to your machine. Then, navigate to the **ssm** project root directory and install from the VS Code command prompt with *"pip install ."*. Note: you may need to run *"pip install --upgrade pip setuptools wheel"* for the **ssm** installation to run smoothly.
+
+## Using the Example Workflows
+
+### ExampleDataCollectionWorkflow
+
+<img width="384" height="316" alt="image" src="https://github.com/user-attachments/assets/1bee6ba9-7b3d-481d-a23f-6fd18ae72794" />
+
+This workflow streams 40-ms buffers of raw electrophysiology data (30 kHz) to a 'DataCollection' node. A Bonsai shaders clock is used to regularly sample data from a provided example datafile (raw_ephys_traces.bin), to simulate real-time data streaming. The 'DataCollection' node preprocesses the raw electrophyiology and then saves the output to a binary file. Preprocessing entails band-pass filtering, down sampling, and taking the log(|FFT|). The default parameters for preprocessing are set in the 'InitDataCollection' node; it is also here that the file name for the stored data is set.
+
+Press 'Start' to run this workflow. The raw electrophysiology buffers can be visualized from the 'SelectChannels' node. (Note: you can toggle this parameter to choose between the first or second channel in the provided example datafile). The stored, transformed FFTs can be visualized from the 'DataCollection' node. Let this workflow run for 3-5 minutes before stopping, to generate sufficient data for performing an H(S)MM fit.
+
+### ExampleModelFittingWorkflow
+
+This workflow simply runs a Python script that accesses the stored data from the previous workflow (DataCollection/TrainingData.bin) and fits an HMM or HSMM. 
