@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.5"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:p1="clr-namespace:neurostate_hmm;assembly=neurostate_hmm"
+                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="WorkflowInput">
+        <Name>Source1</Name>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="p1:FilterParameters">
+            <p1:IncomingSampleRate>30000</p1:IncomingSampleRate>
+            <p1:IncomingBufferLength>15000</p1:IncomingBufferLength>
+            <p1:IncomingBufferStepLength>1200</p1:IncomingBufferStepLength>
+            <p1:DownsampleFactor>30</p1:DownsampleFactor>
+            <p1:LfBandpass>0.3</p1:LfBandpass>
+            <p1:HfBandpass>250</p1:HfBandpass>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>FilterObjectParameters</Name>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="Count" Selector="IncomingBufferLength" />
+          <Property Name="Skip" Selector="IncomingBufferStepLength" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Buffer">
+          <dsp:Count>15000</dsp:Count>
+          <dsp:Skip>1200</dsp:Skip>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="PropertyMapping">
+          <PropertyMappings>
+            <Property Name="BufferLength" Selector="DownsampledBufferLength" />
+            <Property Name="Factor" Selector="DownsampleFactor" />
+            <Property Name="SampleRate" Selector="IncomingSampleRate" />
+            <Property Name="KernelLength" Selector="IncomingKernelLength" />
+          </PropertyMappings>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="dsp:Decimate">
+            <dsp:Downsampling>LowPass</dsp:Downsampling>
+            <dsp:BufferLength>500</dsp:BufferLength>
+            <dsp:Factor>30</dsp:Factor>
+            <dsp:SampleRate>30000</dsp:SampleRate>
+            <dsp:KernelLength>1500</dsp:KernelLength>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="PropertyMapping">
+          <PropertyMappings>
+            <Property Name="SampleRate" Selector="DownsampledSampleRate" />
+            <Property Name="Cutoff1" Selector="LfBandpass" />
+            <Property Name="Cutoff2" Selector="HfBandpass" />
+            <Property Name="KernelLength" Selector="DownsampledKernelLength" />
+          </PropertyMappings>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="dsp:FrequencyFilter">
+            <dsp:SampleRate>1000</dsp:SampleRate>
+            <dsp:Cutoff1>0.3</dsp:Cutoff1>
+            <dsp:Cutoff2>250</dsp:Cutoff2>
+            <dsp:KernelLength>50</dsp:KernelLength>
+            <dsp:FilterType>BandPass</dsp:FilterType>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="WorkflowOutput" />
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="InputMapping">
+          <PropertyMappings />
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="dsp:Buffer">
+            <dsp:Count>0</dsp:Count>
+            <dsp:Skip xsi:nil="true" />
+          </Combinator>
+        </Builder>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="4" Label="Source1" />
+      <Edge From="1" To="3" Label="Source1" />
+      <Edge From="1" To="5" Label="Source1" />
+      <Edge From="1" To="7" Label="Source1" />
+      <Edge From="2" To="3" Label="Source2" />
+      <Edge From="3" To="4" Label="Source2" />
+      <Edge From="4" To="6" Label="Source1" />
+      <Edge From="5" To="6" Label="Source2" />
+      <Edge From="6" To="8" Label="Source1" />
+      <Edge From="7" To="8" Label="Source2" />
+      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="10" To="11" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>
