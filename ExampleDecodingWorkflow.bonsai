@@ -59,7 +59,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="py:CreateRuntime">
           <py:PythonHome>.venv</py:PythonHome>
-          <py:ScriptPath>C:\Users\aborsa3\Documents\BonsaiCorticalState2026\neurostate-hmm\main.py</py:ScriptPath>
+          <py:ScriptPath>main.py</py:ScriptPath>
         </Combinator>
       </Expression>
       <Expression xsi:type="rx:BehaviorSubject">
@@ -118,7 +118,7 @@
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="py:CreateModule">
                 <py:Name>FFTModule</py:Name>
-                <py:ScriptPath>C:\Users\aborsa3\Documents\BonsaiCorticalState2026\neurostate-hmm\main.py</py:ScriptPath>
+                <py:ScriptPath>main.py</py:ScriptPath>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
@@ -172,7 +172,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p1:OnlineFFTLoadPath">
-                <p1:LoadPath>C:\Users\aborsa3\Documents\BonsaiCorticalState2026\offline_modelfitting\saved_models\sim1fft.pkl</p1:LoadPath>
+                <p1:LoadPath>ModelFitting\fft.pkl</p1:LoadPath>
               </Combinator>
             </Expression>
             <Expression xsi:type="MemberSelector">
@@ -308,7 +308,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p1:OnlinePCALoadPath">
-                <p1:LoadPath>C:\Users\aborsa3\Documents\BonsaiCorticalState2026\offline_modelfitting\saved_models\sim1pca.pkl</p1:LoadPath>
+                <p1:LoadPath>ModelFitting\pca.pkl</p1:LoadPath>
               </Combinator>
             </Expression>
             <Expression xsi:type="MemberSelector">
@@ -440,7 +440,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p1:OnlineHSMMLoadPath">
-                <p1:LoadPath>C:\Users\aborsa3\Documents\BonsaiCorticalState2026\offline_modelfitting\saved_models\sim1hmm.pkl</p1:LoadPath>
+                <p1:LoadPath>ModelFitting\hsmm.pkl</p1:LoadPath>
               </Combinator>
             </Expression>
             <Expression xsi:type="MemberSelector">

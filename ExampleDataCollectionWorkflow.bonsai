@@ -59,7 +59,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="py:CreateRuntime">
           <py:PythonHome>.venv</py:PythonHome>
-          <py:ScriptPath>C:\Users\aborsa3\Documents\BonsaiCorticalState2026\neurostate-hmm\main.py</py:ScriptPath>
+          <py:ScriptPath>main.py</py:ScriptPath>
         </Combinator>
       </Expression>
       <Expression xsi:type="rx:BehaviorSubject">
@@ -118,7 +118,7 @@
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="py:CreateModule">
                 <py:Name>FFTModule</py:Name>
-                <py:ScriptPath>C:\Users\aborsa3\Documents\BonsaiCorticalState2026\neurostate-hmm\main.py</py:ScriptPath>
+                <py:ScriptPath>main.py</py:ScriptPath>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
@@ -571,7 +571,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
-          <dsp:Path />
+          <dsp:Path>DataCollection\TrainingData.bin</dsp:Path>
           <dsp:Suffix>None</dsp:Suffix>
           <dsp:Overwrite>true</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>
