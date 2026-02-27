@@ -4,5 +4,9 @@
 !requirements.txt
 .venv/
 *.pkl
+!fft.pkl
+!pca.pkl
+!hmm.pkl
+!hsmm.pkl
 *.bonsai.layout
 .bonsai/
